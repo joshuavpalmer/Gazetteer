@@ -144,9 +144,3 @@ select {
     width: 100vw;
     position: relative;
 }
-
-@media only screen and (max-width: 426px) {
-    #map {
-        height: calc(100vh - 75px);
-    }
-}
