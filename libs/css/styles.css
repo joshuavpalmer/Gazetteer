@@ -1,4 +1,4 @@
-stylesheet.css html,
+html,
 body,
 div,
 span,
@@ -117,6 +117,7 @@ a {
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+    text-decoration: none;
 }
 
 table {
@@ -128,6 +129,15 @@ input,
 select {
     vertical-align: middle;
 }
+
+.nav-left {
+    padding-left: 2%;
+}
+
+.nav-right {
+    padding-right: 2%;
+}
+
 
 #map {
     height: 100vh;

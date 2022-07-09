@@ -8,7 +8,7 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/98de4f33b3.js" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/libs/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./libs/css/bootstrap/css/bootstrap.min.css">
     <!-- Flags -->
     <link rel="stylesheet" href="./libs/css/flags.css">
     <!-- LeafletJS CSS -->
@@ -24,7 +24,18 @@
 </head>
 
 <body>
-    <nav></nav>
+    <header>
+        <nav class="navbar navbar-expan-md navbar-dark bg-dark">
+            <div class="nav-left">
+                <p><a href="" onClick="window.location.reload();"><span class="text-light h1">Gazetteer</span></a></p>
+            </div>
+            <div class="nav-right">
+                <div class="country">
+                    <select name="country" id="country" class="form-select" selected="selected"></select>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <main>
 
