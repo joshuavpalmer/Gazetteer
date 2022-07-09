@@ -80,7 +80,34 @@ $.ajax({
 }
 })
 
+// Create Polygons
+let polygon
+$('#countryList').on('change', function(){
+    $.ajax({
+        url: "libs/php/getPolygon.php?selectedCountry=" + $('#countryList').val(),
+        type: "GET",
+        dataType: "json",
+    
+        success: function(result){
+            console.log(result)
+            if(result.status.name == "ok") {
+                countryPolygon = result["countryPolygons"]
+                geocoding = result['geocoding']
 
+                if(polygon){
+                    polygon.remove()
+                }
+
+                polygon = L.geoJSON(countryPolygon, {
+                    style: {color: "rgb(245, 49, 49)", fillColor: "rgba(0, 119, 73, 0.747)"} 
+                }).addTo(map)
+
+                mapBounds = L.geoJSON(countryPolygon).getBounds()
+                map.fitBounds(mapBounds, {padding: [50,50]})
+            }
+        }
+    })
+})
 
 // Buttons
 // Country Info Button
