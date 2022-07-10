@@ -49,3 +49,29 @@ let overlayMaps = {
 // Layers Control
 L.control.layers(alternativeMaps, overlayMaps).addTo(map);
 L.control.scale().addTo(map);
+
+
+// Populate Country List in Select Bar
+$.ajax({
+    type: 'GET',
+    url: 'libs/php/getCountryList.php',
+    data: {},
+    dataType: 'json',
+    success: (result) => {
+
+        console.log(result);
+
+        if (result.status.name = 'ok') {
+            countryList = result['countryList'];
+
+            countryList.forEach((country) => {
+                let option = document.createElement("option");
+                option.classList.add("option");
+                option.value = country['code'];
+                option.text = country['name'];
+                $('#countryList').append(option);
+            });
+        }
+
+    }
+});

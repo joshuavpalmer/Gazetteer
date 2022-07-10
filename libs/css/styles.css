@@ -2,3 +2,26 @@
     height: 100vh;
     width: 100vw;
 }
+
+/* Country Selection */
+.countrySelectorDiv {
+    position: absolute;
+    top: 2%;
+    right: 50%;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(131, 17, 36);
+    border-radius: 6px;
+    padding-left: 0.8rem;
+}
+
+select {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    padding-right: 10px;
+    border-radius: 4px;
+    right: 30px;
+    border-left: 1px solid black;
+}
