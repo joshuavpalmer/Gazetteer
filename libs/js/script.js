@@ -51,7 +51,7 @@ L.control.layers(alternativeMaps, overlayMaps).addTo(map);
 L.control.scale().addTo(map);
 
 
-// Populate Country List in Select Bar
+// ----------------------------- POPULATE COUNTRY LIST -----------------------------
 $.ajax({
     type: 'GET',
     url: 'libs/php/getCountryList.php',
@@ -72,35 +72,147 @@ $.ajax({
                 $('#countryList').append(option);
             });
         }
-
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
     }
 });
 
-// Generate Polygons for Country Borders
+// ----------------------------- GENERATE POLYGONS -----------------------------
 let polygon
+
 $('#countryList').on('change', function(){
     $.ajax({
         url: "libs/php/getPolygon.php?selectedCountry=" + $('#countryList').val(),
         type: "GET",
         dataType: "json",
     
-        success: function(result){
-            console.log(result)
+        success: function(result) {
             if(result.status.name == "ok") {
-                countryPolygon = result["countryPolygons"]
-                geocoding = result['geocoding']
+                countryPolygon = result["countryPolygons"];
+                geocoding = result['geocoding'];
 
-                if(polygon){
-                    polygon.remove()
+                if (polygon) {
+                    polygon.remove();
                 }
 
                 polygon = L.geoJSON(countryPolygon, {
-                    style: {color: "rgb(245, 49, 49)", fillColor: "rgba(0, 119, 73, 0.747)"} 
-                }).addTo(map)
+                    style: {color: "rgb(131, 17, 36)", fillColor: "rgba(0, 119, 73, 0.747)"} 
+                }).addTo(map);
 
-                mapBounds = L.geoJSON(countryPolygon).getBounds()
-                map.fitBounds(mapBounds, {padding: [50,50]})
+                mapBounds = L.geoJSON(countryPolygon).getBounds();
+                map.fitBounds(mapBounds, {padding: [50,50]});
             }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
+});
+
+// ----------------------------- BUTTONS -----------------------------
+
+// Information Modal
+L.easyButton('fa-solid fa-info fa-lg', () => {
+    $('#infoModal').modal('show');
+}).addTo(map);
+
+// Weather Modal
+L.easyButton('fa-solid fa-cloud-sun fa-lg', () => {
+    $('#weatherModal').modal('show');
+}).addTo(map);
+
+// News Modal
+let newsAvailable = false;
+L.easyButton('fa-solid fa-newspaper fa-lg', () => {
+    if (newsAvailable) {
+        $('#newsModal').modal('show');
+    } else {
+        $('#newsErrorModal').modal('show');
+    }
+}).addTo(map);
+
+// Covid-19 Data Modal
+L.easyButton('fa-solid fa-bacterium fa-lg', () => {
+    $('#').modal('show');
+}).addTo(map);
+
+// Currency Info & Conversion Modal
+L.easyButton('fa-solid fa-money-bill fa-lg', () => {
+    $('#').modal('show');
+}).addTo(map);
+
+// Image Gallery
+L.easyButton('fa-solid fa-images fa-lg', () => {
+    $('#').modal('show');
+}).addTo(map);
+
+
+// ----------------------------- MODALS -----------------------------
+
+
+// Get News
+$('#countryList').on('change', function(){
+    $.ajax({
+        url: "libs/php/getNews.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+            iso2: $('#countryList').val()
+        },
+        success: function(result){
+            if(result.status.name == "ok") {
+
+                let news = result['data']['data'];
+                // let countriesInfo = result['getCountryInfo']
+
+                console.log('TEST')
+                console.log(news);
+
+                // $('#flagDivNews').removeClass()
+                // $('#flagDivNews').addClass('fflag ff-xl ff-sphere')
+                // $('#flagDivNews').addClass(`fflag-${countriesInfo['0']['countryCode']}`)
+                // $('#newsInfoModalLabel').html(countriesInfo['0']['countryName'])
+                // $('#flagDivNewsError').removeClass()
+                // $('#flagDivNewsError').addClass('fflag ff-xl ff-sphere')
+                // $('#flagDivNewsError').addClass(`fflag-${countriesInfo['0']['countryCode']}`)
+                // $('#newsErrorModalLabel').html(countriesInfo['0']['countryName'])
+                
+                if (news[0]) {
+                    console.log('bingo');
+                    newsAvailable = true
+                    // Top Headline
+                    $('#newsLink1').attr('href', `${news['0']['url']}`)
+                    $('#newsTitle1').html(news['0']['title'])
+                    $('#newsImg1').attr('src', `${news['0']['image']}`)
+                    $('#newsSrc1').html(news['0']['source'])
+
+                    // Headline 2
+                    $('#newsLink2').attr('href', `${news['1']['url']}`)
+                    $('#newsTitle2').html(news['1']['title'])
+                    $('#newsImg2').attr('src', `${news['1']['image']}`)
+                    $('#newsSrc2').html(news['1']['source'])
+
+                    // // Headline 3
+                    $('#newsLink3').attr('href', `${news['2']['url']}`)
+                    $('#newsTitle3').html(news['2']['title'])
+                    $('#newsImg3').attr('src', `${news['2']['image']}`)
+                    $('#newsSrc3').html(news['2']['source'])
+                } else {
+                    console.log('ah fuck')
+                    newsAvailable = false
+                }
+
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(JSON.stringify(jqXHR))
+            console.log(JSON.stringify(textStatus))
+            console.log(JSON.stringify(errorThrown))
         }
     })
 })

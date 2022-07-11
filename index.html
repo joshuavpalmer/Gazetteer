@@ -10,10 +10,12 @@
     <!-- Title -->
     <title>Gazetteer</title>
 
-    <!-- ***** -->
-    <!-- Links -->
-    <!-- ***** -->
+    <!-- ********* -->
+    <!-- * Links * -->
+    <!-- ********* -->
 
+    <!-- Font Awesome CDN -->
+    <script src="https://kit.fontawesome.com/98de4f33b3.js" crossorigin="anonymous"></script>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="libs/leaflet/leaflet.css">
     <!-- EasyButton CSS -->
@@ -35,12 +37,320 @@
         </form>
     </div>
 
+    <!-- ********** -->
+    <!-- * MODALS * -->
+    <!-- ********** -->
+
+    <!-- Info Modal -->
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoModalLabel"></h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Official Name
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Population
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Area
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Capital
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Language
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Driving Side
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Region
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Continent
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Weather Modal -->
+    <div class="modal fade" id="weatherModal" tabindex="-1" role="dialog" aria-labelledby="weatherModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="weatherModalLabel"></h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    General
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Temperature
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Local Time
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Sunrise
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Sunset
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Wind Speed
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Precipitation
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Humidity
+                                </th>
+                                <td id="result">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Modal -->
+    <div class="modal fade" id="newsModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="flagDivNews" class="fflag ff-xl ff-sphere"></div>
+                    <div><img src="" alt="" id="wicon"></div>
+                    <h5 class="modal-title" id="newsModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="newsModalBody" class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="4">Top News</th>
+                            </tr>
+                        </thead>
+                        <tbody class="newsTable">
+                            <tr>
+                                <td rowspan="3" colspan="2">
+                                    <a id="newsLink1" target="_blank">
+                                        <img src="" alt="First News Image" id="newsImg1" class="newsImage">
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="newsTitle1" class="newsTitle" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td id="newsSrc1" colspan="2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="4">Other News</th>
+                            </tr>
+                        </thead>
+                        <tbody class="newsTable">
+                            <tr>
+                                <td rowspan="3" colspan="2">
+                                    <a id="newsLink2" target="_blank">
+                                        <img alt="Second News Image" id="newsImg2" class="newsImage">
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="newsTitle2" class="newsTitle" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td id="newsSrc2" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" colspan="2">
+                                    <a id="newsLink3" target="_blank">
+                                        <img alt="Third News Image" id="newsImg3" class="newsImage">
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="newsTitle3" class="newsTitle" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td id="newsSrc3" colspan="2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- No News Source Modal -->
+    <div class="modal fade" id="newsErrorModal" tabindex="-1" role="dialog" aria-labelledby="newsErrorCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="flagDivNewsError" class="fflag ff-xl ff-sphere"></div>
+                    <div><img src="" alt="" id="wicon"></div>
+                    <h5 class="modal-title" id="newsErrorModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Sorry, unfortunately we are unable to find news sources for this country.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Map -->
     <div id="map"></div>
 
-    <!-- ********** -->
-    <!-- JavaScript -->
-    <!-- ********** -->
+    <!-- ************** -->
+    <!-- * JavaScript * -->
+    <!-- ************** -->
 
     <!-- Leaflet JS -->
     <script src="libs/leaflet/leaflet.js"></script>
