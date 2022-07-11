@@ -154,6 +154,50 @@ L.easyButton('fa-solid fa-images fa-lg', () => {
 
 // ----------------------------- MODALS -----------------------------
 
+// Get Country Information
+$('#countryList').on('change', () => {
+    $.ajax({
+        url: 'libs/php/getCountryInfo.php',
+        type: 'GET',
+        data: {
+            iso2: $('#countryList').val()
+        },
+        dataType: 'json',
+        success: (result) => {
+
+            let info = result['data'][0];
+            console.log(info);
+
+            if (result.status.name == 'ok') {
+
+                // Update Modal Titles
+                $('#infoModalLabel').html(info['name']['common']);
+                $('#weatherModalLabel').html(info['name']['common']);
+                $('#newsModalLabel').html(info['name']['common']);
+                $('#newsErrorModalLabel').html(info['name']['common']);
+
+
+                // Update Information Modal
+                $('#countryOfficialName').html(info['name']['official']);
+                $('#countryPopulation').html(info['population']);
+                $('#countryArea').html(info['area'] + 'km<sup>2</sup>');
+                $('#countryCapital').html(info['capital']);
+                $('#countryDrivingSide').html(info['car']['side']);
+                $('#countryRegion').html(info['subregion']);
+                $('#countryContinent').html(info['continents']);
+
+                let rawLanguages = info['languages'];
+                const languageProperties = Object.getOwnPropertyNames(rawLanguages);
+                let languages = [];
+                for (let i = 0; i < languageProperties.length; i++) {
+                    languages += `${info['languages'][Object.keys(info['languages'])[i]]} <br>`
+                    $('#countryLanguages').html(languages);
+                }
+            }
+            
+        }
+    })
+})
 
 // Get News
 $('#countryList').on('change', function(){
@@ -168,51 +212,58 @@ $('#countryList').on('change', function(){
             if(result.status.name == "ok") {
 
                 let news = result['data']['data'];
-                // let countriesInfo = result['getCountryInfo']
-
-                console.log('TEST')
                 console.log(news);
 
                 // $('#flagDivNews').removeClass()
                 // $('#flagDivNews').addClass('fflag ff-xl ff-sphere')
                 // $('#flagDivNews').addClass(`fflag-${countriesInfo['0']['countryCode']}`)
-                // $('#newsInfoModalLabel').html(countriesInfo['0']['countryName'])
+                // $('#newsModalLabel').html(countriesInfo['0']['countryName'])
                 // $('#flagDivNewsError').removeClass()
                 // $('#flagDivNewsError').addClass('fflag ff-xl ff-sphere')
                 // $('#flagDivNewsError').addClass(`fflag-${countriesInfo['0']['countryCode']}`)
                 // $('#newsErrorModalLabel').html(countriesInfo['0']['countryName'])
                 
                 if (news[0]) {
-                    console.log('bingo');
-                    newsAvailable = true
+                    newsAvailable = true;
                     // Top Headline
-                    $('#newsLink1').attr('href', `${news['0']['url']}`)
-                    $('#newsTitle1').html(news['0']['title'])
-                    $('#newsImg1').attr('src', `${news['0']['image']}`)
-                    $('#newsSrc1').html(news['0']['source'])
+                    $('#newsLink1').attr('href', `${news['0']['url']}`);
+                    $('#newsTitle1').html(news['0']['title']);
+                    if (news[0]['image']) {
+                        $('#newsImg1').attr('src', `${news['0']['image']}`);
+                    } else {
+                        $('#newsImg1').attr('src', 'libs/css/images/breaking-news-64.png');
+                    }
+                    $('#newsSrc1').html(news['0']['source']);
 
                     // Headline 2
-                    $('#newsLink2').attr('href', `${news['1']['url']}`)
-                    $('#newsTitle2').html(news['1']['title'])
-                    $('#newsImg2').attr('src', `${news['1']['image']}`)
-                    $('#newsSrc2').html(news['1']['source'])
+                    $('#newsLink2').attr('href', `${news['1']['url']}`);
+                    $('#newsTitle2').html(news['1']['title']);
+                    if (news[0]['image']) {
+                        $('#newsImg2').attr('src', `${news['1']['image']}`);
+                    } else {
+                        $('#newsImg2').attr('src', 'libs/css/images/news-64.png');
+                    }
+                    $('#newsSrc2').html(news['1']['source']);
 
                     // // Headline 3
-                    $('#newsLink3').attr('href', `${news['2']['url']}`)
-                    $('#newsTitle3').html(news['2']['title'])
-                    $('#newsImg3').attr('src', `${news['2']['image']}`)
-                    $('#newsSrc3').html(news['2']['source'])
+                    $('#newsLink3').attr('href', `${news['2']['url']}`);
+                    $('#newsTitle3').html(news['2']['title']);
+                    if (news[0]['image']) {
+                        $('#newsImg3').attr('src', `${news['2']['image']}`);
+                    } else {
+                        $('#newsImg3').attr('src', 'libs/css/images/news-64.png');
+                    }
+                    $('#newsSrc3').html(news['2']['source']);
                 } else {
-                    console.log('ah fuck')
-                    newsAvailable = false
+                    newsAvailable = false;
                 }
 
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log(JSON.stringify(jqXHR))
-            console.log(JSON.stringify(textStatus))
-            console.log(JSON.stringify(errorThrown))
+            console.log(JSON.stringify(jqXHR));
+            console.log(JSON.stringify(textStatus));
+            console.log(JSON.stringify(errorThrown));
         }
     })
 })
