@@ -176,11 +176,13 @@ $('#countryList').on('change', () => {
                 $('#newsModalLabel').html(info['name']['common']);
                 $('#newsErrorModalLabel').html(info['name']['common']);
 
+                $('.flag').attr('src', info['flags']['png']);
+
 
                 // Update Information Modal
                 $('#countryOfficialName').html(info['name']['official']);
-                $('#countryPopulation').html(info['population']);
-                $('#countryArea').html(info['area'] + 'km<sup>2</sup>');
+                $('#countryPopulation').html(commaSeparateNumber(info['population']));
+                $('#countryArea').html(commaSeparateNumber(info['area'] + ' km<sup>2</sup>'));
                 $('#countryCapital').html(info['capital']);
                 $('#countryDrivingSide').html(info['car']['side']);
                 $('#countryRegion').html(info['subregion']);
@@ -213,15 +215,6 @@ $('#countryList').on('change', function(){
 
                 let news = result['data']['data'];
                 console.log(news);
-
-                // $('#flagDivNews').removeClass()
-                // $('#flagDivNews').addClass('fflag ff-xl ff-sphere')
-                // $('#flagDivNews').addClass(`fflag-${countriesInfo['0']['countryCode']}`)
-                // $('#newsModalLabel').html(countriesInfo['0']['countryName'])
-                // $('#flagDivNewsError').removeClass()
-                // $('#flagDivNewsError').addClass('fflag ff-xl ff-sphere')
-                // $('#flagDivNewsError').addClass(`fflag-${countriesInfo['0']['countryCode']}`)
-                // $('#newsErrorModalLabel').html(countriesInfo['0']['countryName'])
                 
                 if (news[0]) {
                     newsAvailable = true;
@@ -267,3 +260,22 @@ $('#countryList').on('change', function(){
         }
     })
 })
+
+// Fix Numbers (Remove Commas, Remove leading zeros, separate decimals)
+commaSeparateNumber = (num) => {
+    num = num.toString().replace(/,/g, '') // Remove Existing Commas
+    let numRmZero = num.replace(/^0+/, '') // Remove Leading Zeros
+    let numSplit = numRmZero.split('.') // Separate Decimals
+
+    while (/(\d+)(\d{3})/.test(numSplit[0].toString())) {
+        numSplit[0] = numSplit[0].toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2')
+    }
+
+    if (numSplit.length == 2) { // If already had decimals
+        num = numSplit[0] + '.' + numSplit[1] // Add decimals Back
+    } else {
+        num = numSplit[0]
+    }
+
+    return num;
+}
