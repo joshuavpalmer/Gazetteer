@@ -138,7 +138,7 @@ L.easyButton('fa-solid fa-newspaper fa-lg', () => {
 
 // Covid-19 Data Modal
 L.easyButton('fa-solid fa-bacterium fa-lg', () => {
-    $('#').modal('show');
+    $('#covidInfoModal').modal('show');
 }).addTo(map);
 
 // Currency Info & Conversion Modal
@@ -276,7 +276,7 @@ $('#countryList').on('change', function(){
                     // Headline 2
                     $('#newsLink2').attr('href', `${news['1']['url']}`);
                     $('#newsTitle2').html(news['1']['title']);
-                    if (news[0]['image']) {
+                    if (news[1]['image']) {
                         $('#newsImg2').attr('src', `${news['1']['image']}`);
                     } else {
                         $('#newsImg2').attr('src', 'libs/css/images/news-64.png');
@@ -286,7 +286,7 @@ $('#countryList').on('change', function(){
                     // // Headline 3
                     $('#newsLink3').attr('href', `${news['2']['url']}`);
                     $('#newsTitle3').html(news['2']['title']);
-                    if (news[0]['image']) {
+                    if (news[2]['image']) {
                         $('#newsImg3').attr('src', `${news['2']['image']}`);
                     } else {
                         $('#newsImg3').attr('src', 'libs/css/images/news-64.png');
@@ -307,7 +307,39 @@ $('#countryList').on('change', function(){
 })
 
 // Get Covid-19 Data
+$('#countryList').on('change', function(){
+    $.ajax({
+        url: "libs/php/getCovid.php",
+        type: "GET",
+        dataType: "json",
+        data: {
+            selectedCountry: $('#countryList').val()
+        },
+        success: function(result) {
 
+            if (result.status.name == "ok") {
+
+                covidInfo = result['data']['data']
+
+                $('#totalCases').html(commaSeparateNumber(covidInfo['latest_data']['confirmed']))
+                $('#totalDeaths').html(commaSeparateNumber(covidInfo['latest_data']['deaths']))
+                $('#totalRecovered').html(commaSeparateNumber(covidInfo['latest_data']['recovered']))
+                $('#newCases').html(commaSeparateNumber(covidInfo['timeline']['0']['new_confirmed']))
+                $('#newDeaths').html(commaSeparateNumber(covidInfo['timeline']['0']['new_deaths']))
+                $('#newRecovered').html(commaSeparateNumber(covidInfo['timeline']['0']['new_recovered']))
+                $('#3mCases').html(commaSeparateNumber(covidInfo['timeline']['365']['confirmed']))
+                $('#3mDeaths').html(commaSeparateNumber(covidInfo['timeline']['365']['deaths']))
+                $('#3mRecovered').html(commaSeparateNumber(covidInfo['timeline']['365']['recovered']))
+
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(JSON.stringify(jqXHR))
+            console.log(JSON.stringify(textStatus))
+            console.log(JSON.stringify(errorThrown))
+        }
+    });
+})
 
 
 // Fix Numbers (Remove Commas, Remove leading zeros, separate decimals)

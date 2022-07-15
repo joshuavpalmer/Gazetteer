@@ -339,13 +339,96 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div id="flagDivNewsError" class="fflag ff-xl ff-sphere"></div>
-                    <div><img src="" alt="" id="wicon"></div>
-                    <h5 class="modal-title" id="newsErrorModalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="newsModalLabel"></h5>
+                    <div class="flagContainer">
+                        <img src="" alt="" class="flag">
+                    </div>
                 </div>
                 <div class="modal-body">
                     <p>Sorry, unfortunately we are unable to find news sources for this country.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Covid-19 Data Modal -->
+    <div class="modal fade" id="covidInfoModal" tabindex="-1" role="dialog" aria-labelledby="covidInfoModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content covidInfoModal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="covidModalLabel"></h5>
+                    <div class="flagContainer">
+                        <img src="" alt="" class="flag">
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="covidHead">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="covidTable">
+                            <tr>
+                                <th scope="row"><i class="fas fa-virus"></i> Total Cases</th>
+                                <td id="totalCases"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="fas fa-skull-crossbones"></i> Total Deaths </th>
+                                <td id="totalDeaths"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="fas fa-briefcase-medical"></i> Total Recovered</th>
+                                <td id="totalRecovered"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="covidHead">Past 24 Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody class="covidTable">
+                            <tr>
+                                <th scope="row"><i class="fas fa-virus"></i> New Cases</th>
+                                <td id="newCases"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="fas fa-skull-crossbones"></i> New Deaths </th>
+                                <td id="newDeaths"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="fas fa-briefcase-medical"></i> New Recovered</th>
+                                <td id="newRecovered"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="covidHead">Past Year</th>
+                            </tr>
+                        </thead>
+                        <tbody class="covidTable">
+                            <tr>
+                                <th scope="row"><i class="fas fa-virus"></i> Total Cases</th>
+                                <td id="3mCases"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="fas fa-skull-crossbones"></i> Total Deaths </th>
+                                <td id="3mDeaths"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="fas fa-briefcase-medical"></i> Total Recovered</th>
+                                <td id="3mRecovered"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
