@@ -166,7 +166,14 @@ $('#countryList').on('change', () => {
         success: (result) => {
 
             let info = result['data'][0];
-            console.log(info);
+
+            let capitalLatitude = info['capitalInfo']['latlng'][0];
+            let capitalLongitude = info['capitalInfo']['latlng'][1];
+            console.log(capitalLatitude);
+            console.log(capitalLongitude);
+
+            // Call Weather here to access lat/lng variables -> Perhaps look into promises/async/await solution later.
+            getWeather(capitalLatitude, capitalLongitude);
 
             if (result.status.name == 'ok') {
 
@@ -196,10 +203,48 @@ $('#countryList').on('change', () => {
                     $('#countryLanguages').html(languages);
                 }
             }
-            
+        },
+        error: (result) => {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
         }
     })
 })
+
+// Get Weather
+const getWeather = (lat, lng) => {
+    $.ajax({
+        url: 'libs/php/getWeather.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            lat,
+            lng
+        },
+        success: (result) => {
+            console.log(result.status.name);
+            if (result.status.name == 'ok') {
+                let weather = result.data;
+                console.log(weather);
+                $('#overview').attr('src', weather['current']['condition']['icon']);
+                $('#temperature').html(weather['current']['temp_c'] + ' &#8451');
+                $('#localTime').html(weather['location']['localtime']);
+                $('#sunrise').html(weather['forecast']['forecastday'][0]['astro']['sunrise']);
+                $('#sunset').html(weather['forecast']['forecastday'][0]['astro']['sunset']);
+                $('#windSpeed').html(weather['current']['wind_mph'] + ' mph');
+                $('#precipitation').html(weather['current']['precip_in'] + ' "');
+                $('#humidity').html(weather['current']['humidity'] + ' %');
+
+            }
+        },
+        error: (jqXHR, textStatus, errorThrown) => {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
+};
 
 // Get News
 $('#countryList').on('change', function(){
@@ -260,6 +305,10 @@ $('#countryList').on('change', function(){
         }
     })
 })
+
+// Get Covid-19 Data
+
+
 
 // Fix Numbers (Remove Commas, Remove leading zeros, separate decimals)
 commaSeparateNumber = (num) => {
