@@ -146,6 +146,10 @@ L.easyButton('fa-solid fa-money-bill fa-lg', () => {
     $('#').modal('show');
 }).addTo(map);
 
+L.easyButton('fa-solid fa-money-bill fa-lg', () => {
+    $('#').modal('show');
+}).addTo(map);
+
 // Image Gallery
 L.easyButton('fa-solid fa-images fa-lg', () => {
     $('#').modal('show');
