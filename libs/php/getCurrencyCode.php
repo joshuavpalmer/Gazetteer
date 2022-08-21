@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 $executionStartTime = microtime(true);
 
-$url= 'https://v6.exchangerate-api.com/v6/d10d4f779826d01df964406f/latest/' . $_REQUEST['currencyCode'];
+$url='http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $_REQUEST['country'] . '&lang=en' . '&username=joshuavpalmer&style=full';
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

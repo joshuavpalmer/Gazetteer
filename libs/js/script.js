@@ -166,6 +166,7 @@ $('#countryList').on('change', () => {
         success: (result) => {
 
             let info = result['data'][0];
+            console.log(info)
 
             let capitalLatitude = info['capitalInfo']['latlng'][0];
             let capitalLongitude = info['capitalInfo']['latlng'][1];
@@ -174,6 +175,9 @@ $('#countryList').on('change', () => {
 
             // Call Weather here to access lat/lng variables -> Perhaps look into promises/async/await solution later.
             getWeather(capitalLatitude, capitalLongitude);
+            
+            let country = info['cca2']
+            getCurrencyCode(country);
 
             if (result.status.name == 'ok') {
 
@@ -225,7 +229,6 @@ const getWeather = (lat, lng) => {
             lng
         },
         success: (result) => {
-            console.log(result.status.name);
             if (result.status.name == 'ok') {
                 let weather = result.data;
                 console.log(weather);
@@ -259,7 +262,6 @@ $('#countryList').on('change', function(){
         },
         success: function(result){
             if(result.status.name == "ok") {
-
                 let news = result['data']['data'];
                 console.log(news);
                 
@@ -343,6 +345,88 @@ $('#countryList').on('change', function(){
     });
 })
 
+// Get Exchange Rates
+const getExchangeRates = (currencyCode) => {
+    $.ajax({
+        url: 'libs/php/getExchangeRates.php',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            currencyCode
+        },
+        success: function(result) {
+
+            if (result.status.name == "ok") {
+                
+                conversionRates = result['data']['conversion_rates'];
+
+                console.log(Object.keys(conversionRates)[0])
+                console.log(Object.keys(conversionRates).length);
+               
+                for (let i = 0; i < (Object.keys(conversionRates).length) - 1; i++ ) {
+                    console.log(i)
+                    let option = document.createElement('option');
+                    option.classList.add('option');
+                    option.value = Object.values(conversionRates)[i];
+                    option.text = Object.keys(conversionRates)[i];
+                    $('#countryListCurrency').append(option);
+                    console.log(option.text)
+                    console.log(option.value)
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(JSON.stringify(jqXHR))
+            console.log(JSON.stringify(textStatus))
+            console.log(JSON.stringify(errorThrown))
+        }
+    })
+}
+
+const getCurrencyCode = (country) => {
+    $.ajax({
+        url: 'libs/php/getCurrencyCode.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            country
+        },
+        success: function(result) {
+            if (result.status.name == "ok") {
+                
+                let currencyCode = result['data']['geonames']['0']['currencyCode'];
+
+                getExchangeRates(currencyCode);
+
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(JSON.stringify(jqXHR))
+            console.log(JSON.stringify(textStatus))
+            console.log(JSON.stringify(errorThrown))
+        }
+    })
+}
+
+// Need to refactor these two event handled functions to not repeat code
+$('#countryListCurrency').on('change', function () {
+    let amountToConvert = $('#currencyQuantity').val()
+    let currencyToConvertTo = $('#countryListCurrency').val()
+
+    let conversionResult = (amountToConvert * currencyToConvertTo);
+
+    $('#conversionResult').html(conversionResult);
+})
+
+$('#currencyQuantity').on('keyup', function(){
+
+    let amountToConvert = $('#currencyQuantity').val()
+    let currencyToConvertTo = $('#countryListCurrency').val()
+
+    let conversionResult = (amountToConvert * currencyToConvertTo);
+
+    $('#conversionResult').html(conversionResult);
+})
 
 // Fix Numbers (Remove Commas, Remove leading zeros, separate decimals)
 commaSeparateNumber = (num) => {
