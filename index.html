@@ -434,6 +434,78 @@
         </div>
     </div>
 
+    <!-- Currency Modal -->
+    <div class="modal fade" id="currencyModal" tabindex="-1" role="dialog" aria-labelledby="currencyModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="currencyModalLabel"></h5>
+                    <div class="flagContainer">
+                        <img src="" alt="" class="flag">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Currency
+                                </th>
+                                <td id="currencyName">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- icon for row -->
+                                </td>
+                                <th scope="row">
+                                    Symbol
+                                </th>
+                                <td id="currencySymbol">
+                                    <!-- DATA HERE -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <h6>Currency Converter</h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    GBP
+                                    <!-- Current Country Currency -->
+                                </td>
+                                <td>
+                                    <p>TO</p>
+                                </td>
+                                <td>
+                                    <select name="countryList" id="countryListCurrency" selected="selected"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="currencyQuantity">£(SYM)</label>
+                                    <input type="text" name="currencyQuantity" id="currencyQuantity">
+                                </td>
+                                <td>
+                                    <p>=</p>
+                                </td>
+                                <td>
+                                    <p>RESULT</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Map -->
     <div id="map"></div>
 

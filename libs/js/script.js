@@ -143,11 +143,7 @@ L.easyButton('fa-solid fa-bacterium fa-lg', () => {
 
 // Currency Info & Conversion Modal
 L.easyButton('fa-solid fa-money-bill fa-lg', () => {
-    $('#').modal('show');
-}).addTo(map);
-
-L.easyButton('fa-solid fa-money-bill fa-lg', () => {
-    $('#').modal('show');
+    $('#currencyModal').modal('show');
 }).addTo(map);
 
 // Image Gallery
@@ -186,6 +182,8 @@ $('#countryList').on('change', () => {
                 $('#weatherModalLabel').html(info['name']['common']);
                 $('#newsModalLabel').html(info['name']['common']);
                 $('#newsErrorModalLabel').html(info['name']['common']);
+                $('#covidModalLabel').html(info['name']['common']);
+                $('#currencyModalLabel').html(info['name']['common']);
 
                 $('.flag').attr('src', info['flags']['png']);
 
