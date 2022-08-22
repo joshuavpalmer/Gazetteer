@@ -417,12 +417,13 @@ $('#countryListCurrency').on('change', function () {
 
     let amountToConvert = $('#currencyQuantity').val();
     let currencyToConvertTo = $('#countryListCurrency').val();
-    let conversionResult = (amountToConvert * currencyToConvertTo);
+    let currencyRound = parseFloat(currencyToConvertTo).toFixed(2);
+    let conversionResult = (amountToConvert * currencyToConvertTo).toFixed(2);
 
     let currencyText = $('#countryListCurrency option:selected').text();
 
     $('#conversionResult').html(`${conversionResult} ${currencyText}`);
-    $('#singleCurrencyTo').html(`${currencyToConvertTo} ${currencyText}`);
+    $('#singleCurrencyTo').html(`${currencyRound} ${currencyText}`);
 
 })
 
@@ -430,7 +431,7 @@ $('#currencyQuantity').on('keyup', function(){
 
     let amountToConvert = $('#currencyQuantity').val();
     let currencyToConvertTo = $('#countryListCurrency').val();
-    let conversionResult = (amountToConvert * currencyToConvertTo);
+    let conversionResult = (amountToConvert * currencyToConvertTo).toFixed(2);
 
     let currencyText = $('#countryListCurrency option:selected').text();
 
