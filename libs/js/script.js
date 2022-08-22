@@ -179,6 +179,7 @@ $('#countryList').on('change', () => {
             let country = info['cca2']
             getCurrencyCode(country);
 
+
             if (result.status.name == 'ok') {
 
                 // Update Modal Titles
@@ -396,6 +397,8 @@ const getCurrencyCode = (country) => {
                 
                 let currencyCode = result['data']['geonames']['0']['currencyCode'];
 
+                $('.countryCurrencyCode').html(currencyCode)
+                $('#singleCurrencyFrom').html(`1 ${currencyCode}`)
                 getExchangeRates(currencyCode);
 
             }
@@ -410,22 +413,31 @@ const getCurrencyCode = (country) => {
 
 // Need to refactor these two event handled functions to not repeat code
 $('#countryListCurrency').on('change', function () {
+
     let amountToConvert = $('#currencyQuantity').val()
     let currencyToConvertTo = $('#countryListCurrency').val()
-
     let conversionResult = (amountToConvert * currencyToConvertTo);
 
     $('#conversionResult').html(conversionResult);
+
+    let currencyText = $('#countryListCurrency option:selected').text();
+
+    $('#singleCurrencyTo').html(`${currencyToConvertTo} ${currencyText}`)
+
 })
 
 $('#currencyQuantity').on('keyup', function(){
 
     let amountToConvert = $('#currencyQuantity').val()
     let currencyToConvertTo = $('#countryListCurrency').val()
-
     let conversionResult = (amountToConvert * currencyToConvertTo);
 
     $('#conversionResult').html(conversionResult);
+
+    let currencyText = $('#countryListCurrency option:selected').text();
+
+    $('#singleCurrencyTo').html(`${currencyToConvertTo} ${currencyText}`)
+
 })
 
 // Fix Numbers (Remove Commas, Remove leading zeros, separate decimals)
