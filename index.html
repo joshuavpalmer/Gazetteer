@@ -461,9 +461,8 @@
                                 <th scope="row">
                                     Symbol
                                 </th>
-                                <td id="currencySymbol" colspan="2">
-                                    <!-- DATA HERE -->
-                                    £
+                                <td colspan="2">
+                                    <p class="currencySymbol"></p>
                                 </td>
                             </tr>
                             <tr>
@@ -495,14 +494,16 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label for="currencyQuantity">£(SYM)</label>
+                                    <label for="currencyQuantity">
+                                        <p class="currencySymbol"></p>
+                                    </label>
                                     <input type="text" name="currencyQuantity" id="currencyQuantity">
                                 </td>
                                 <td>
                                     <p>=</p>
                                 </td>
                                 <td>
-                                    <p id="conversionResult">RESULT</p>
+                                    <p id="conversionResult"></p>
                                 </td>
                             </tr>
                         </tbody>

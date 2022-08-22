@@ -176,7 +176,11 @@ $('#countryList').on('change', () => {
             // Call Weather here to access lat/lng variables -> Perhaps look into promises/async/await solution later.
             getWeather(capitalLatitude, capitalLongitude);
             
-            let country = info['cca2']
+            // Get Currency Code + Exchange Rates
+            let country = info['cca2'];
+            let currenciesInfo = info['currencies'];
+            let currencySymbol = Object.values(currenciesInfo)[0]['symbol'];
+            $('.currencySymbol').html(currencySymbol);
             getCurrencyCode(country);
 
 
@@ -211,7 +215,7 @@ $('#countryList').on('change', () => {
                 }
             }
         },
-        error: (result) => {
+        error: (jqXHR, textStatus, errorThrown) => {
             console.log(jqXHR);
             console.log(textStatus);
             console.log(errorThrown);
@@ -365,14 +369,11 @@ const getExchangeRates = (currencyCode) => {
                 console.log(Object.keys(conversionRates).length);
                
                 for (let i = 0; i < (Object.keys(conversionRates).length) - 1; i++ ) {
-                    console.log(i)
                     let option = document.createElement('option');
                     option.classList.add('option');
                     option.value = Object.values(conversionRates)[i];
                     option.text = Object.keys(conversionRates)[i];
                     $('#countryListCurrency').append(option);
-                    console.log(option.text)
-                    console.log(option.value)
                 }
             }
         },
@@ -414,29 +415,27 @@ const getCurrencyCode = (country) => {
 // Need to refactor these two event handled functions to not repeat code
 $('#countryListCurrency').on('change', function () {
 
-    let amountToConvert = $('#currencyQuantity').val()
-    let currencyToConvertTo = $('#countryListCurrency').val()
+    let amountToConvert = $('#currencyQuantity').val();
+    let currencyToConvertTo = $('#countryListCurrency').val();
     let conversionResult = (amountToConvert * currencyToConvertTo);
-
-    $('#conversionResult').html(conversionResult);
 
     let currencyText = $('#countryListCurrency option:selected').text();
 
-    $('#singleCurrencyTo').html(`${currencyToConvertTo} ${currencyText}`)
+    $('#conversionResult').html(`${conversionResult} ${currencyText}`);
+    $('#singleCurrencyTo').html(`${currencyToConvertTo} ${currencyText}`);
 
 })
 
 $('#currencyQuantity').on('keyup', function(){
 
-    let amountToConvert = $('#currencyQuantity').val()
-    let currencyToConvertTo = $('#countryListCurrency').val()
+    let amountToConvert = $('#currencyQuantity').val();
+    let currencyToConvertTo = $('#countryListCurrency').val();
     let conversionResult = (amountToConvert * currencyToConvertTo);
-
-    $('#conversionResult').html(conversionResult);
 
     let currencyText = $('#countryListCurrency option:selected').text();
 
-    $('#singleCurrencyTo').html(`${currencyToConvertTo} ${currencyText}`)
+    $('#conversionResult').html(`${conversionResult} ${currencyText}`);
+    $('#singleCurrencyTo').html(`${currencyToConvertTo} ${currencyText}`);
 
 })
 
