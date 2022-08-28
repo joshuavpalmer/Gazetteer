@@ -166,22 +166,21 @@ $('#countryList').on('change', () => {
         success: (result) => {
 
             let info = result['data'][0];
-            console.log(info)
 
             let capitalLatitude = info['capitalInfo']['latlng'][0];
             let capitalLongitude = info['capitalInfo']['latlng'][1];
-            console.log(capitalLatitude);
-            console.log(capitalLongitude);
 
             // Call Weather here to access lat/lng variables -> Perhaps look into promises/async/await solution later.
             getWeather(capitalLatitude, capitalLongitude);
             
             // Get Currency Code + Exchange Rates
             let country = info['cca2'];
+            let countryName = info['name']['common']
             let currenciesInfo = info['currencies'];
             let currencySymbol = Object.values(currenciesInfo)[0]['symbol'];
             $('.currencySymbol').html(currencySymbol);
             getCurrencyCode(country);
+            getImages(countryName);
 
 
             if (result.status.name == 'ok') {
@@ -193,6 +192,7 @@ $('#countryList').on('change', () => {
                 $('#newsErrorModalLabel').html(info['name']['common']);
                 $('#covidModalLabel').html(info['name']['common']);
                 $('#currencyModalLabel').html(info['name']['common']);
+                $('#imagesModalLabel').html(info['name']['common']);
 
                 $('.flag').attr('src', info['flags']['png']);
 
@@ -236,7 +236,7 @@ const getWeather = (lat, lng) => {
         success: (result) => {
             if (result.status.name == 'ok') {
                 let weather = result.data;
-                console.log(weather);
+                
                 $('#overview').attr('src', weather['current']['condition']['icon']);
                 $('#temperature').html(weather['current']['temp_c'] + ' &#8451');
                 $('#localTime').html(weather['location']['localtime']);
@@ -268,7 +268,7 @@ $('#countryList').on('change', function(){
         success: function(result){
             if(result.status.name == "ok") {
                 let news = result['data']['data'];
-                console.log(news);
+
                 
                 if (news[0]) {
                     newsAvailable = true;
@@ -364,9 +364,6 @@ const getExchangeRates = (currencyCode) => {
             if (result.status.name == "ok") {
                 
                 conversionRates = result['data']['conversion_rates'];
-
-                console.log(Object.keys(conversionRates)[0])
-                console.log(Object.keys(conversionRates).length);
                
                 for (let i = 0; i < (Object.keys(conversionRates).length) - 1; i++ ) {
                     let option = document.createElement('option');
@@ -441,23 +438,28 @@ $('#currencyQuantity').on('keyup', function(){
 })
 
 // Get Images
-$('#countryList').on('change', function(){
+const getImages = (countryName) => {
     $.ajax({
         url: "libs/php/getImages.php",
         type: "GET",
         dataType: "json",
         data: {
-            selectedCountry: $('#countryList').val()
+            selectedCountry: countryName
         },
         success: function(result) {
 
+            let images = result['data']['hits'];
+
             if (result.status.name == "ok") {
 
-                let images = result
-                
-                console.log(images)
+                if (images) {
 
-            
+                    for (let i = 0; i < 5; i++) {
+                        $(`.d-block${i + 1}`).attr('src', images[i]['webformatURL']);
+                        $(`#header${i + 1}`).html(`${images[i]['tags']}`);
+                    }
+                }
+
 
             }
         },
@@ -467,7 +469,7 @@ $('#countryList').on('change', function(){
             console.log(JSON.stringify(errorThrown))
         }
     });
-})
+}
 
 
 // Fix Numbers (Remove Commas, Remove leading zeros, separate decimals)

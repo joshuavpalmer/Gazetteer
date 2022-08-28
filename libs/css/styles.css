@@ -8,6 +8,12 @@
     height: 100%;
 }
 
+.flag {
+    width: 35%;
+    height: 21%;
+    float: right;
+}
+
 /* Country Selection */
 .countrySelectorDiv {
     position: absolute;
@@ -29,4 +35,9 @@ select {
     border-radius: 4px;
     right: 30px;
     border-left: 1px solid black;
+}
+
+/* Images Modal */
+.carousel-caption h5 {
+    color: #fff(131, 17, 36);
 }
