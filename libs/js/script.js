@@ -148,7 +148,7 @@ L.easyButton('fa-solid fa-money-bill fa-lg', () => {
 
 // Image Gallery
 L.easyButton('fa-solid fa-images fa-lg', () => {
-    $('#').modal('show');
+    $('#imagesModal').modal('show');
 }).addTo(map);
 
 
@@ -328,7 +328,7 @@ $('#countryList').on('change', function(){
 
             if (result.status.name == "ok") {
 
-                covidInfo = result['data']['data']
+                let covidInfo = result['data']['data']
 
                 $('#totalCases').html(commaSeparateNumber(covidInfo['latest_data']['confirmed']))
                 $('#totalDeaths').html(commaSeparateNumber(covidInfo['latest_data']['deaths']))
@@ -439,6 +439,36 @@ $('#currencyQuantity').on('keyup', function(){
     $('#singleCurrencyTo').html(`${currencyToConvertTo} ${currencyText}`);
 
 })
+
+// Get Images
+$('#countryList').on('change', function(){
+    $.ajax({
+        url: "libs/php/getImages.php",
+        type: "GET",
+        dataType: "json",
+        data: {
+            selectedCountry: $('#countryList').val()
+        },
+        success: function(result) {
+
+            if (result.status.name == "ok") {
+
+                let images = result
+                
+                console.log(images)
+
+            
+
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(JSON.stringify(jqXHR))
+            console.log(JSON.stringify(textStatus))
+            console.log(JSON.stringify(errorThrown))
+        }
+    });
+})
+
 
 // Fix Numbers (Remove Commas, Remove leading zeros, separate decimals)
 commaSeparateNumber = (num) => {
