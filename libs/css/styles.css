@@ -41,3 +41,47 @@ select {
 .carousel-caption h5 {
     color: #fff(131, 17, 36);
 }
+
+#preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9998;
+    overflow: hidden;
+    background-image: url("../img/earth.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: black;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-size: contain;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#preloaderText {
+    color: #83cc89;
+    font-size: 5rem;
+    text-align: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+#gify {
+    height: 4rem;
+    padding-left: 2rem;
+}
+
+#bckPreloader {
+    text-align: center;
+    width: 100%;
+    background-color: black;
+    opacity: 0.8;
+}

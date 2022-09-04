@@ -152,6 +152,7 @@ L.easyButton('fa-solid fa-images fa-lg', () => {
 }).addTo(map);
 
 
+
 // ----------------------------- MODALS -----------------------------
 
 // Get Country Information
@@ -490,3 +491,38 @@ commaSeparateNumber = (num) => {
 
     return num;
 }
+
+// Get User Location
+let currentLocationCode = '';
+
+let successCurPos = function (position) {
+    let lat = position.coords.latitude;
+    let lng = position.coords.longitude;
+
+    $.ajax({
+        url: 'libs/php/getLocation.php',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            lat: lat,
+            lng: lng,
+        },
+        success: function(result) {
+            currentLocationCode = result['data']['countryCode'];
+            currentCountryName = result['data']['countryName'];
+            $('#countryList').val(currentLocationCode).change();
+            $('#preloader').remove();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(JSON.stringify(jqXHR))
+            console.log(JSON.stringify(textStatus))
+            console.log(JSON.stringify(errorThrown))
+        }
+    })
+}
+
+let errorCurPos = function(error) {
+    console.log(error);
+}
+
+navigator.geolocation.getCurrentPosition(successCurPos, errorCurPos)
