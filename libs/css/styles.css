@@ -74,6 +74,24 @@ select {
     padding: 20px;
 }
 
+#welcomeModalAllow h1 {
+    font-size: 3rem;
+    text-align: center;
+    padding: 2rem;
+}
+
+#welcomeModalAllow p {
+    font-size: 2rem;
+    text-align: center;
+    padding: 2rem;
+}
+
+#welcomeModalAllow #localCountry {
+    font-size: 2.5rem;
+    padding: 2rem;
+    font-weight: bold;
+}
+
 #gify {
     height: 4rem;
     padding-left: 2rem;

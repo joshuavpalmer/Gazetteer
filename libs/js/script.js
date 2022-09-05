@@ -494,6 +494,7 @@ commaSeparateNumber = (num) => {
 
 // Get User Location
 let currentLocationCode = '';
+let currentCountryName = '';
 
 let successCurPos = function (position) {
     let lat = position.coords.latitude;
@@ -512,6 +513,8 @@ let successCurPos = function (position) {
             currentCountryName = result['data']['countryName'];
             $('#countryList').val(currentLocationCode).change();
             $('#preloader').remove();
+            $('#welcomeModalAllow').modal('show');
+            $('#localCountry').html(currentCountryName)
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(JSON.stringify(jqXHR))
