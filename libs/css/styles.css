@@ -67,7 +67,7 @@ select {
 }
 
 #preloaderText {
-    color: #83cc89;
+    color: rgb(131, 17, 36);
     font-size: 5rem;
     text-align: center;
     z-index: 9999;
